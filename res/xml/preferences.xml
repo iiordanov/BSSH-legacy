@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * ConnectBot: simple, powerful, open-source SSH client for Android
+ * Copyright 2007 Kenny Root, Jeffrey Sharkey
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<CheckBoxPreference
+		android:key="memkeys"
+		android:title="@string/pref_memkeys_title"
+		android:summary="@string/pref_memkeys_summary"
+		android:defaultValue="true"
+		/>
+
+	<ListPreference
+		android:key="update"
+		android:title="@string/pref_update_title"
+		android:summary="@string/pref_update_summary"
+		android:entries="@array/list_update"
+		android:entryValues="@array/list_update_values"
+		android:defaultValue="Daily"
+		/>
+
+	<CheckBoxPreference
+		android:key="connPersist"
+		android:title="@string/pref_conn_persist_title"
+		android:summary="@string/pref_conn_persist_summary"
+		android:defaultValue="true"
+		/>
+
+	<PreferenceCategory
+		android:title="@string/pref_emulation_category">
+
+		<ListPreference
+			android:key="emulation"
+			android:title="@string/pref_emulation_title"
+			android:summary="@string/pref_emulation_summary"
+			android:entries="@array/list_emulation_modes"
+			android:entryValues="@array/list_emulation_modes"
+			android:defaultValue="screen"
+			/>
+
+		<EditTextPreference
+			android:key="scrollback"
+			android:title="@string/pref_scrollback_title"
+			android:summary="@string/pref_scrollback_summary"
+			android:defaultValue="140"
+			android:numeric="integer"
+			/>
+
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:key="category_ui"
+		android:title="@string/pref_ui_category">
+
+		<ListPreference
+			android:key="rotation"
+			android:title="@string/pref_rotation_title"
+			android:summary="@string/pref_rotation_summary"
+			android:entries="@array/list_rotation"
+			android:entryValues="@array/list_rotation_values"
+			android:defaultValue="Default"
+			/>
+
+		<CheckBoxPreference
+			android:key="fullscreen"
+			android:title="@string/pref_fullscreen_title"
+			android:summary="@string/pref_fullscreen_summary"
+			android:defaultValue="false"
+			/>
+
+		<CheckBoxPreference
+			android:key="hide_actionbar"
+			android:title="@string/pref_hide_actionbar_title"
+			android:summary="@string/pref_hide_actionbar_summary"
+			android:defaultValue="false"
+			/>
+
+		<ListPreference
+			android:key="keymode"
+			android:title="@string/pref_keymode_title"
+			android:summary="@string/pref_keymode_summary"
+			android:entries="@array/list_keymode"
+			android:entryValues="@array/list_keymode_values"
+			android:defaultValue="Use right-side keys"
+			/>
+
+		<ListPreference
+			android:key="camera"
+			android:title="@string/pref_camera_title"
+			android:summary="@string/pref_camera_summary"
+			android:entries="@array/list_camera"
+			android:entryValues="@array/list_camera_values"
+			android:defaultValue="Screen Capture"
+			/>
+
+		<CheckBoxPreference
+			android:key="keepalive"
+			android:title="@string/pref_keepalive_title"
+			android:summary="@string/pref_keepalive_summary"
+			android:defaultValue="true"
+			/>
+
+		<CheckBoxPreference
+			android:key="wifilock"
+			android:title="@string/pref_wifilock_title"
+			android:summary="@string/pref_wifilock_summary"
+			android:defaultValue="true"
+			/>
+
+		<CheckBoxPreference
+			android:key="bumpyarrows"
+			android:title="@string/pref_bumpyarrows_title"
+			android:summary="@string/pref_bumpyarrows_summary"
+			android:defaultValue="true"
+			/>
+
+		<EditTextPreference
+			android:key="picker_string"
+			android:title="@string/pref_picker_string"
+			android:summary="@string/pref_picker_string_summary"
+			android:defaultValue="~\\^()[]{}&lt;&gt;|/:_;,.!@#$%&amp;*?\&quot;&apos;-+="
+			android:singleLine="true"
+			/>
+
+		<CheckBoxPreference
+			android:key="picker_keep_open"
+			android:title="@string/pref_picker_keep_open"
+			android:summary="@string/pref_picker_keep_open_summary"
+			android:defaultValue="false"
+			/>
+
+		<ListPreference
+			android:key="list_custom_keymap"
+			android:title="@string/pref_custom_keymap_title"
+			android:summary="@string/pref_custom_keymap_summary"
+			android:entries="@array/list_custom_keymap"
+			android:entryValues="@array/list_custom_keymap_values"
+			android:defaultValue="none"
+			/>
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:title="@string/pref_bell_category">
+
+		<CheckBoxPreference
+			android:key="bell"
+			android:title="@string/pref_bell_title"
+			android:defaultValue="true"
+			/>
+
+		<com.iiordanov.bssh.util.VolumePreference
+			android:key="bellVolume"
+			android:title="@string/pref_bell_volume_title"
+			/>
+
+		<CheckBoxPreference
+			android:key="bellVibrate"
+			android:title="@string/pref_bell_vibrate_title"
+			android:defaultValue="true"
+			/>
+
+		<CheckBoxPreference
+			android:key="bellNotification"
+			android:title="@string/pref_bell_notification_title"
+			android:summary="@string/pref_bell_notification_summary"
+			android:defaultValue="false"
+			/>
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:title="@string/pref_default_size_category">
+
+		<EditTextPreference
+			android:key="default_font_size"
+			android:title="@string/pref_default_font_size"
+			android:summary="@string/pref_default_font_size_summary"
+			android:defaultValue="0"
+			android:numeric="integer"
+			/>
+
+		<EditTextPreference
+			android:key="default_fsize_width"
+			android:title="@string/pref_default_fsize_width"
+			android:summary="@string/pref_default_fsize_width_summary"
+			android:defaultValue="80"
+			android:numeric="integer"
+			/>
+
+		<EditTextPreference
+			android:key="default_fsize_height"
+			android:title="@string/pref_default_fsize_height"
+			android:summary="@string/pref_default_fsize_height_summary"
+			android:defaultValue="25"
+			android:numeric="integer"
+			/>
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:title="@string/pref_screen_capture_category">
+
+		<EditTextPreference
+			android:key="screen_capture_folder"
+			android:title="@string/pref_screen_capture_folder"
+			android:summary="@string/pref_screen_capture_folder_summary"
+			android:inputType="text"
+			android:singleLine="true"
+			/>
+
+		<CheckBoxPreference
+			android:key="screen_capture_popup"
+			android:title="@string/pref_screen_capture_popup"
+			android:summary="@string/pref_screen_capture_popup_summary"
+			android:defaultValue="true"
+			/>
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:title="@string/pref_file_transfer_category">
+
+		<ListPreference
+			android:key="file_dialog"
+			android:title="@string/pref_file_dialog_title"
+			android:summary="@string/pref_file_dialog_summary"
+			android:entries="@array/file_dialog"
+			android:entryValues="@array/file_dialog_values"
+			android:defaultValue="built-in"
+			/>
+
+		<EditTextPreference
+			android:key="download_folder"
+			android:title="@string/pref_download_folder"
+			android:summary="@string/pref_download_folder_summary"
+			android:inputType="text"
+			android:singleLine="true"
+			/>
+
+		<EditTextPreference
+			android:key="remote_upload_folder"
+			android:title="@string/pref_remote_upload_folder"
+			android:summary="@string/pref_remote_upload_folder_summary"
+			android:inputType="text"
+			android:singleLine="true"
+			android:defaultValue=""
+			/>
+
+		<CheckBoxPreference
+			android:key="upload_dest_prompt"
+			android:title="@string/pref_upload_dest_prompt"
+			android:summary="@string/pref_upload_dest_prompt_summary"
+			android:defaultValue="true"
+			/>
+
+		<CheckBoxPreference
+			android:key="background_file_transfer"
+			android:title="@string/pref_background_file_transfer"
+			android:summary="@string/pref_background_file_transfer_summary"
+			android:defaultValue="true"
+			/>
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:title="@string/pref_debug_category">
+
+		<CheckBoxPreference
+			android:key="debug_keycodes"
+			android:title="@string/pref_debug_keycodes"
+			android:summary="@string/pref_debug_keycodes_summary"
+			android:defaultValue="false"
+			/>
+	</PreferenceCategory>
+</PreferenceScreen>
