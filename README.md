@@ -1,6 +1,6 @@
 BSSH
 ====
-Copyright (c) 2012 Iordan Iordanov, iiordanov gmail com
+Copyright (c) 2012 Iordan Iordanov, <iiordanov gmail com>
 
 Based on ﻿VX ConnectBot
 ======================
