@@ -1,20 +1,18 @@
 BSSH
 ====
-
 Copyright (c) 2012 Iordan Iordanov, iiordanov gmail com
 
 Based on ﻿VX ConnectBot
 ======================
-
 Copyright (c) 2011 Martin Matuška <martin at matuska dot vx dot sk>
 
 ## Description
 
-VX ConnectBot is an enhanced version of the popular open-source telnet and secure shell (SSH) client ConnectBot.
+BSSH is based on VX ConnectBot, which is an enhanced version of the popular open-source telnet and secure shell (SSH) client ConnectBot.
 
 ## Features and enhancements
 
- - based on ConnectBot 1.7.1
+ - based on VX ConnectBot 1.7.1
  - background file transfer (SCP protocol)
  - screen capture (save a PNG screenshot of the console)
  - character picker dialog (on-screen and hardware SYM keys)
@@ -33,9 +31,11 @@ VX ConnectBot is an enhanced version of the popular open-source telnet and secur
 
 ## License
 
-VX ConnectBot is licensed under the Apache License, Version 2.0
+BSSH is licensed under the Apache License, Version 2.0
 
 ## Download
+
+[BSSH git repository](https://github.com/iiordanov/BSSH) 
 
 [VX Connectbot Homepage](http://connectbot.vx.sk)
 
@@ -43,7 +43,9 @@ VX ConnectBot is licensed under the Apache License, Version 2.0
 
 ## Credits
 
-This software is based on [ConnectBot](http://code.google.com/p/connectbot/)
+BSSH is based on [VX Connectbot](http://connectbot.vx.sk)
+
+VX Connectbot is based on [ConnectBot](http://code.google.com/p/connectbot/)
 
 ConnectBot Copyright (c) 2007-2011 [Kenny Root](http://the-b.org), [Jeffrey Sharkey](http://jsharkey.org)
 
