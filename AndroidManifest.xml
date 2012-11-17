@@ -17,11 +17,11 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.iiordanov.bssh"
-	android:versionName="1.7.1-14"
-	android:versionCode="14"
+	android:versionName="1.7.1-16"
+	android:versionCode="16"
 	android:installLocation="auto">
 
-	<uses-sdk android:targetSdkVersion="10" android:minSdkVersion="3" />
+	<uses-sdk android:targetSdkVersion="11" android:minSdkVersion="3" />
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.VIBRATE" />

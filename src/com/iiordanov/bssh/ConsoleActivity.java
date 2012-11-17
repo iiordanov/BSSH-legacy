@@ -54,6 +54,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
@@ -408,8 +409,17 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				TerminalView terminal = (TerminalView)flip;
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
-				handler.showCharPickerDialog(terminal);
+				terminal.bridge.showCharPickerDialog();
 				keyboardGroup.setVisibility(View.GONE);
+			}
+		});
+		symButton.setOnLongClickListener(new OnLongClickListener() {
+			public boolean onLongClick(View view) {
+				View flip = findCurrentView(R.id.console_flip);
+				if (flip == null) return false;
+				TerminalView terminal = (TerminalView)flip;
+				terminal.bridge.showArrowsDialog();
+				return true;
 			}
 		});
 
@@ -447,6 +457,15 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				keyboardGroup.setVisibility(View.GONE);
 			}
 		});
+		ctrlButton.setOnLongClickListener(new OnLongClickListener() {
+			public boolean onLongClick(View view) {
+				View flip = findCurrentView(R.id.console_flip);
+				if (flip == null) return false;
+				TerminalView terminal = (TerminalView)flip;
+				terminal.bridge.showCtrlDialog();
+				return true;
+			}
+		});
 
 		final ImageView escButton = (ImageView) findViewById(R.id.button_esc);
 		escButton.setOnClickListener(new OnClickListener() {
@@ -459,6 +478,15 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				handler.sendEscape();
 
 				keyboardGroup.setVisibility(View.GONE);
+			}
+		});
+		escButton.setOnLongClickListener(new OnLongClickListener() {
+			public boolean onLongClick(View view) {
+				View flip = findCurrentView(R.id.console_flip);
+				if (flip == null) return false;
+				TerminalView terminal = (TerminalView)flip;
+				terminal.bridge.showFKeysDialog();
+				return true;
 			}
 		});
 
@@ -576,19 +604,45 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				itemList.add(ConsoleActivity.this
 						.getResources().getString(R.string.longpress_change_font_size));
 
+				if (prefs.getBoolean(PreferenceConstants.EXTENDED_LONGPRESS,false)) {
+					itemList.add(ConsoleActivity.this
+							.getResources().getString(R.string.longpress_arrows_dialog));
+					itemList.add(ConsoleActivity.this
+							.getResources().getString(R.string.longpress_fkeys_dialog));
+					itemList.add(ConsoleActivity.this
+							.getResources().getString(R.string.longpress_ctrl_dialog));
+					itemList.add(ConsoleActivity.this
+							.getResources().getString(R.string.longpress_sym_dialog));
+				}
+
 				if (itemList.size() > 0) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(ConsoleActivity.this);
 					builder.setTitle(R.string.longpress_select_action);
 					builder.setItems(itemList.toArray(new CharSequence[itemList.size()]),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int item) {
-								if (item == 0) {
+								switch (item) {
+								case 0:
 									if (fullScreen == FULLSCREEN_ON) {
 										setFullScreen(FULLSCREEN_OFF);
 									} else
 										setFullScreen(FULLSCREEN_ON);
-								} else if (item == 1)
+								break;
+								case 1:
 									bridge.showFontSizeDialog();
+									break;
+								case 2:
+									bridge.showArrowsDialog();
+									break;
+								case 3:
+									bridge.showFKeysDialog();
+									break;
+								case 4:
+									bridge.showCtrlDialog();
+									break;
+								case 5:
+									bridge.showCharPickerDialog();
+								}
 							}
 						});
 					AlertDialog alert = builder.create();
@@ -1390,4 +1444,23 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				bound.setFullScreen(this.fullScreen);
 		}
 	}
+/*
+	private void showActionBar() {
+		try {
+			if (this.getActionBar() != null)
+				this.getActionBar().show();
+		} catch (Exception e) {
+			Log.e(TAG, "Error showing ActionBar", e);
+		}
+	}
+
+	private void hideActionBar() {
+		try {
+			if (this.getActionBar() != null)
+				this.getActionBar().hide();
+		} catch (Exception e) {
+			Log.e(TAG, "Error hiding ActionBar", e);
+		}
+	}
+*/
 }

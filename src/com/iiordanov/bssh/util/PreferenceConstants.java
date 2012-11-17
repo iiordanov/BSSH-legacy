@@ -90,8 +90,10 @@ public class PreferenceConstants {
 	/* Backup identifiers */
 	public static final String BACKUP_PREF_KEY = "prefs";
 
+	public static final String CTRL_STRING = "ctrl_string";
 	public static final String PICKER_STRING = "picker_string";
 	public static final String PICKER_KEEP_OPEN = "picker_keep_open";
+	public static final String EXTENDED_LONGPRESS = "extended_longpress";
 	public static final String SCREEN_CAPTURE_POPUP = "screen_capture_popup";
 	public static final String SCREEN_CAPTURE_FOLDER = "screen_capture_folder";
 	public static final String DEFAULT_FONT_SIZE_HEIGHT = "default_fsize_height";
@@ -110,4 +112,5 @@ public class PreferenceConstants {
 	public static final String CUSTOM_KEYMAP = "list_custom_keymap";
 	public static final String CUSTOM_KEYMAP_DISABLED = "none";
 	public static final String CUSTOM_KEYMAP_SE_XPPRO = "se_xppro";
+	public static final String CUSTOM_KEYMAP_SGH_I927 = "sgh_i927";
 }

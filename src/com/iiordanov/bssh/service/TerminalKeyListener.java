@@ -84,6 +84,14 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 	public final static int META_TRANSIENT = META_CTRL_ON | META_ALT_ON
 			| META_SHIFT_ON;
 
+	public final static int SCAN_ESC = 1;
+	public final static int SCAN_LEFTCTRL = 29;
+	public final static int SCAN_RIGHTCTRL = 97;
+	public final static int SCAN_F1 = 59;
+	public final static int SCAN_F10 = 68;
+	public final static int SCAN_HOME = 102;
+	public final static int SCAN_END = 107;
+	
 	private final TerminalManager manager;
 	private final TerminalBridge bridge;
 	private final VDUBuffer buffer;
@@ -94,6 +102,8 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 
 	private int metaState = 0;
 
+	private boolean hardCtrlPressed = false;
+	
 	private int mDeadKey = 0;
 
 	// TODO add support for the new API.
@@ -134,12 +144,23 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 	 * Modify the keys to make more sense to a host then pass it to the transport.
 	 */
 	public boolean onKey(View v, int keyCode, KeyEvent event) {
+		Log.e(TAG, "onKey: " + keyCode + " " + event.getUnicodeChar());
 		try {
 			final boolean hardKeyboardHidden = manager.hardKeyboardHidden;
 
 			// Ignore all key-up events except for the special keys
 			if (event.getAction() == KeyEvent.ACTION_UP) {
 
+				// Look for external keyboard scancodes.
+				switch (event.getScanCode()) {
+				case SCAN_LEFTCTRL:
+				case SCAN_RIGHTCTRL:
+					metaState &= ~META_CTRL_ON;
+					hardCtrlPressed = false;
+					bridge.redraw();
+					return true;
+				}
+				
 				// There's nothing here for virtual keyboard users.
 				if (!hardKeyboard || (hardKeyboard && hardKeyboardHidden))
 					return false;
@@ -244,7 +265,7 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 				//Show up the CharacterPickerDialog when the SYM key is pressed
 				if( (keyCode == KeyEvent.KEYCODE_SYM || keyCode == KeyEvent.KEYCODE_PICTSYMBOLS ||
 						key == KeyCharacterMap.PICKER_DIALOG_INPUT)) {
-					showCharPickerDialog(v);
+					bridge.showCharPickerDialog();
 					if(metaState == 4) { // reset fn-key state
 						metaState = 0;
 						bridge.redraw();
@@ -274,9 +295,11 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 				}
 
 				if ((metaState & META_CTRL_MASK) != 0) {
-					metaState &= ~META_CTRL_ON;
-					bridge.redraw();
-
+					if (!hardCtrlPressed) {
+						metaState &= ~META_CTRL_ON;
+						bridge.redraw();
+					}
+					
 					// If there is no hard keyboard or there is a hard keyboard currently hidden,
 					// CTRL-1 through CTRL-9 will send F1 through F9
 					if ((!hardKeyboard || (hardKeyboard && hardKeyboardHidden))
@@ -392,18 +415,16 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 				metaState &= ~META_TRANSIENT;
 				bridge.tryKeyVibrate();
 				return true;
-/*
-			case KeyEvent.KEYCODE_MOVE_HOME:
+			case 122: //KeyEvent.KEYCODE_MOVE_HOME:
 				((vt320) buffer).keyPressed(vt320.KEY_HOME, ' ', getStateForBuffer());
 				metaState &= ~META_TRANSIENT;
 				bridge.tryKeyVibrate();
 				return true;
-			case KeyEvent.KEYCODE_MOVE_END:
+			case 123: //KeyEvent.KEYCODE_MOVE_END:
 				((vt320) buffer).keyPressed(vt320.KEY_END, ' ', getStateForBuffer());
 				metaState &= ~META_TRANSIENT;
 				bridge.tryKeyVibrate();
 				return true;
-*/
 			case KeyEvent.KEYCODE_CAMERA:
 				// check to see which shortcut the camera button triggers
 				String camera = manager.prefs.getString(
@@ -509,10 +530,38 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 				return true;
 
 			case KeyEvent.KEYCODE_DPAD_CENTER:
-				ctrlKeySpecial();
+				metaPress(META_CTRL_ON);
+				//ctrlKeySpecial();
 				return true;
 			}
 
+			// Look for scancodes from external keyboards
+			switch (event.getScanCode()) {
+			case SCAN_ESC:
+				sendEscape();
+				return true;
+			case SCAN_LEFTCTRL:
+			case SCAN_RIGHTCTRL:
+				metaState |= META_CTRL_ON;
+				hardCtrlPressed = true;
+				return true;
+			case SCAN_HOME:
+				return true;
+			case SCAN_END:
+				return true;
+			default:
+				// Handle F1-F10 which come in row
+				int scancode = event.getScanCode();
+				if (scancode >= SCAN_F1 && scancode <= SCAN_F10) {
+					int k = scancode - SCAN_F1 + KeyEvent.KEYCODE_1;
+					// F10 corresponds to 0
+					sendFunctionKey(k > KeyEvent.KEYCODE_9 ? KeyEvent.KEYCODE_0 : k);
+					return true;
+				}
+				return false;
+			}
+			
+			
 		} catch (IOException e) {
 			Log.e(TAG, "Problem while trying to handle an onKey() event", e);
 			try {
@@ -530,6 +579,7 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 	}
 
 	public int keyAsControl(int key) {
+		Log.e(TAG, "keyAsControl");
 		// Support CTRL-a through CTRL-z
 		if (key >= 0x61 && key <= 0x7A)
 			key -= 0x60;
@@ -661,61 +711,7 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 		this.encoding = encoding;
 	}
 
-	private String getPickerString() {
-		final String defaultSet = "~\\^()[]{}<>|/:_;,.!@#$%&*?\"'-+=";
-		String set = prefs.getString(PreferenceConstants.PICKER_STRING,defaultSet);
-		if (set == null || set.equals("")) {
-			set = defaultSet;
-		}
-		return set;
-	}
 
-	public boolean showCharPickerDialog(View v) {
-		CharSequence str = "";
-		Editable content = Editable.Factory.getInstance().newEditable(str);
-
-		CharacterPickerDialog cpd = new CharacterPickerDialog(v.getContext(),
-				v, content, getPickerString(), true) {
-			private void writeChar(CharSequence result) {
-				try {
-					bridge.transport.write(result.toString().getBytes(encoding));
-				} catch (IOException e) {
-					Log.e(TAG, "Problem with the CharacterPickerDialog", e);
-				}
-				if (!prefs.getBoolean(PreferenceConstants.PICKER_KEEP_OPEN,false))
-						dismiss();
-			}
-
-			@Override
-			public void onItemClick(AdapterView p, View v, int pos, long id) {
-				String result = String.valueOf(getPickerString().charAt(pos));
-				writeChar(result);
-			}
-
-			@Override
-			public void onClick(View v) {
-				if (v instanceof Button) {
-					CharSequence result = ((Button) v).getText();
-					if (result.equals(""))
-						dismiss();
-					else
-						writeChar(result);
-				}
-			}
-
-			@Override
-			public boolean onKeyDown(int keyCode, KeyEvent event) {
-				if (keyCode == KeyEvent.KEYCODE_SYM || keyCode == KeyEvent.KEYCODE_PICTSYMBOLS) {
-					dismiss();
-					return true;
-				}
-				return super.onKeyDown(keyCode, event);
-			}
-		};
-
-		cpd.show();
-		return true;
-	}
 
 	private void ctrlKeySpecial() {
 		if (selectingForCopy) {
@@ -754,8 +750,8 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 
 		byte c = 0x00;
 
-		// Sony Ericsson Xperia (mini) pro
 		if (customKeyboard.equals(PreferenceConstants.CUSTOM_KEYMAP_SE_XPPRO)) {
+			// Sony Ericsson Xperia pro (MK16i) and Xperia mini Pro (SK17i)
 			// Language key acts as CTRL
 			if (keyCode == KeyEvent.KEYCODE_SWITCH_CHARSET) {
 				ctrlKeySpecial();
@@ -806,6 +802,32 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 					break;
 				case KeyEvent.KEYCODE_APOSTROPHE:
 					c = 0x7e;
+					break;
+				}
+			}
+		} else if (customKeyboard.equals(PreferenceConstants.CUSTOM_KEYMAP_SGH_I927)) {
+			// Samsung Captivate Glide (SGH-i927)
+			if (keyCode == 115) {
+				// .com key = ESC
+				sendEscape();
+				return true;
+			}
+			if (keyCode == 116) {
+				// Microphone key = TAB
+				c = 0x09;
+			} else if ((metaState & META_ALT_MASK) != 0 && (metaState & META_SHIFT_MASK) != 0) {
+				switch (keyCode) {
+				case KeyEvent.KEYCODE_O:
+					c = 0x5B;
+					break;
+				case KeyEvent.KEYCODE_P:
+					c = 0x5D;
+					break;
+				case KeyEvent.KEYCODE_A:
+					c = 0x3C;
+					break;
+				case KeyEvent.KEYCODE_D:
+					c = 0x3E;
 					break;
 				}
 			}
