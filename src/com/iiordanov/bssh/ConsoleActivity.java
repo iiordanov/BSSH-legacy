@@ -454,7 +454,8 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.metaPress(TerminalKeyListener.META_CTRL_ON);
 
-				keyboardGroup.setVisibility(View.GONE);
+				// It's not nice when it disappears as soon as clicked. What if user wants to double-click to toggle?
+				//keyboardGroup.setVisibility(View.GONE);
 			}
 		});
 		ctrlButton.setOnLongClickListener(new OnLongClickListener() {
@@ -477,7 +478,8 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendEscape();
 
-				keyboardGroup.setVisibility(View.GONE);
+				// It's not nice when it disappears as soon as clicked. What if user wants to double-click to toggle?
+				//keyboardGroup.setVisibility(View.GONE);
 			}
 		});
 		escButton.setOnLongClickListener(new OnLongClickListener() {
@@ -754,10 +756,13 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 	 */
 	private void configureOrientation() {
 		String rotateDefault;
-		if (getResources().getConfiguration().keyboard == Configuration.KEYBOARD_NOKEYS)
-			rotateDefault = PreferenceConstants.ROTATION_PORTRAIT;
-		else
-			rotateDefault = PreferenceConstants.ROTATION_LANDSCAPE;
+		// Automatic rotation is now the default.
+		//if (getResources().getConfiguration().keyboard == Configuration.KEYBOARD_NOKEYS)
+		//	rotateDefault = PreferenceConstants.ROTATION_PORTRAIT;
+		//else
+		//	rotateDefault = PreferenceConstants.ROTATION_LANDSCAPE;
+
+		rotateDefault = PreferenceConstants.ROTATION_AUTOMATIC;
 
 		String rotate = prefs.getString(PreferenceConstants.ROTATION, rotateDefault);
 		if (PreferenceConstants.ROTATION_DEFAULT.equals(rotate))
