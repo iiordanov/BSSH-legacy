@@ -88,7 +88,7 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 	private static final int CLICK_TIME = 400;
 	private static final float MAX_CLICK_DISTANCE = 25f;
-	private static final int KEYBOARD_DISPLAY_TIME = 1500;
+	private static final int KEYBOARD_DISPLAY_TIME = 4000;
 
 	// Direction to shift the ViewFlipper
 	private static final int SHIFT_LEFT = 0;
@@ -444,6 +444,18 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 			}
 		});
 
+		final ImageView tabButton = (ImageView) findViewById(R.id.button_tab);
+		tabButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				View flip = findCurrentView(R.id.console_flip);
+				if (flip == null) return;
+				TerminalView terminal = (TerminalView)flip;
+
+				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
+				handler.sendTab();
+			}
+		});
+
 		final ImageView ctrlButton = (ImageView) findViewById(R.id.button_ctrl);
 		ctrlButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
@@ -492,6 +504,54 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 			}
 		});
 
+		final ImageView upButton = (ImageView) findViewById(R.id.button_up);
+		upButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				View flip = findCurrentView(R.id.console_flip);
+				if (flip == null) return;
+				TerminalView terminal = (TerminalView)flip;
+
+				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
+				handler.sendUp();
+			}
+		});
+		
+		final ImageView leftButton = (ImageView) findViewById(R.id.button_left);
+		leftButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				View flip = findCurrentView(R.id.console_flip);
+				if (flip == null) return;
+				TerminalView terminal = (TerminalView)flip;
+
+				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
+				handler.sendLeft();
+			}
+		});
+		
+		final ImageView downButton = (ImageView) findViewById(R.id.button_down);
+		downButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				View flip = findCurrentView(R.id.console_flip);
+				if (flip == null) return;
+				TerminalView terminal = (TerminalView)flip;
+
+				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
+				handler.sendDown();
+			}
+		});
+		
+		final ImageView rightButton = (ImageView) findViewById(R.id.button_right);
+		rightButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				View flip = findCurrentView(R.id.console_flip);
+				if (flip == null) return;
+				TerminalView terminal = (TerminalView)flip;
+
+				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
+				handler.sendRight();
+			}
+		});
+		
 		// detect fling gestures to switch between terminals
 		final GestureDetector detect = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
 			private float totalY = 0;

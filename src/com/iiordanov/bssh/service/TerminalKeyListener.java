@@ -595,10 +595,86 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 		return key;
 	}
 
+	public void sendTab () {
+		try {
+			bridge.transport.write(0x09);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void sendEscape() {
 		((vt320)buffer).keyTyped(vt320.KEY_ESCAPE, ' ', 0);
 	}
 
+	public void sendUp() {
+		if (selectingForCopy) {
+			selectionArea.decrementRow();
+			bridge.redraw();
+		} else {
+			if ((metaState & META_ALT_MASK) != 0) {
+				((vt320)buffer).keyPressed(vt320.KEY_PAGE_UP, ' ',
+						getStateForBuffer());
+			} else {
+				((vt320) buffer).keyPressed(vt320.KEY_UP, ' ',
+						getStateForBuffer());
+			}
+			metaState &= ~META_TRANSIENT;
+			bridge.tryKeyVibrate();
+		}
+	}
+
+	public void sendLeft() {
+		if (selectingForCopy) {
+			selectionArea.decrementColumn();
+			bridge.redraw();
+		} else {
+			if ((metaState & META_ALT_MASK) != 0) {
+				((vt320) buffer).keyPressed(vt320.KEY_HOME, ' ',
+						getStateForBuffer());
+			} else {
+				((vt320) buffer).keyPressed(vt320.KEY_LEFT, ' ',
+						getStateForBuffer());
+			}
+			metaState &= ~META_TRANSIENT;
+			bridge.tryKeyVibrate();
+		}
+	}
+	
+	public void sendDown() {
+		if (selectingForCopy) {
+			selectionArea.incrementRow();
+			bridge.redraw();
+		} else {
+			if ((metaState & META_ALT_MASK) != 0) {
+				((vt320)buffer).keyPressed(vt320.KEY_PAGE_DOWN, ' ',
+						getStateForBuffer());
+			} else {
+				((vt320) buffer).keyPressed(vt320.KEY_DOWN, ' ',
+						getStateForBuffer());
+			}
+			metaState &= ~META_TRANSIENT;
+			bridge.tryKeyVibrate();
+		}
+	}
+
+	public void sendRight() {
+		if (selectingForCopy) {
+			selectionArea.incrementColumn();
+			bridge.redraw();
+		} else {
+			if ((metaState & META_ALT_MASK) != 0) {
+				((vt320) buffer).keyPressed(vt320.KEY_END, ' ',
+						getStateForBuffer());
+			} else {
+				((vt320) buffer).keyPressed(vt320.KEY_RIGHT, ' ',
+						getStateForBuffer());
+			}
+			metaState &= ~META_TRANSIENT;
+			bridge.tryKeyVibrate();
+		}
+	}
+	
 	/**
 	 * @param key
 	 * @return successful

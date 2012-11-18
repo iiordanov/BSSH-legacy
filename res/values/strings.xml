@@ -491,6 +491,17 @@
 	<!-- Describes the icon of the "locked pubkey" icon for accessibility purposes. -->
 	<string name="image_description_key_is_locked">"Key is locked."</string>
 
+	<!-- Describes the icon of the "send tab character" button in the terminal view for
+	     accessibility purposes. -->
+	<string name="image_description_send_tab_character">"Send tab character."</string>
+	
+	<!-- Describes the icon of the "send up/down/left/right character" button in the terminal view for
+	     accessibility purposes. -->
+	<string name="image_description_send_up_character">"Send up arrow."</string>
+	<string name="image_description_send_left_character">"Send left arrow."</string>
+	<string name="image_description_send_down_character">"Send down arrow."</string>
+	<string name="image_description_send_right_character">"Send right arrow."</string>
+		
 	<!-- Describes the icon of the "send control character" button in the terminal view for
 	     accessibility purposes. -->
 	<string name="image_description_toggle_control_character">Toggle control character.</string>
