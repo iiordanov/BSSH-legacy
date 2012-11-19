@@ -237,6 +237,17 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 		}
 	};
 
+	private Runnable fadeOutOnScreenKeys = new Runnable() {
+		public void run() {
+			final RelativeLayout keyboardGroup = (RelativeLayout) findViewById(R.id.keyboard_group);
+			if (keyboardGroup == null || keyboardGroup.getVisibility() == View.GONE)
+				return;
+
+			keyboardGroup.startAnimation(keyboard_fade_out);
+			keyboardGroup.setVisibility(View.GONE);
+		}
+	};
+	
 	/**
 	 * @param bridge
 	 */
@@ -453,6 +464,9 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendTab();
+				
+				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
+				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
 		});
 
@@ -466,8 +480,8 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.metaPress(TerminalKeyListener.META_CTRL_ON);
 
-				// It's not nice when it disappears as soon as clicked. What if user wants to double-click to toggle?
-				//keyboardGroup.setVisibility(View.GONE);
+				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
+				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
 		});
 		ctrlButton.setOnLongClickListener(new OnLongClickListener() {
@@ -490,8 +504,8 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendEscape();
 
-				// It's not nice when it disappears as soon as clicked. What if user wants to double-click to toggle?
-				//keyboardGroup.setVisibility(View.GONE);
+				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
+				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
 		});
 		escButton.setOnLongClickListener(new OnLongClickListener() {
@@ -513,6 +527,8 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendUp();
+				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
+				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
 		});
 		
@@ -525,6 +541,8 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendLeft();
+				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
+				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
 		});
 		
@@ -537,6 +555,8 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendDown();
+				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
+				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
 		});
 		
@@ -549,6 +569,8 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendRight();
+				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
+				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
 		});
 		
@@ -784,23 +806,14 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
 					lastX = event.getX();
 					lastY = event.getY();
-				} else if (event.getAction() == MotionEvent.ACTION_UP
-						&& keyboardGroup.getVisibility() == View.GONE
-						&& event.getEventTime() - event.getDownTime() < CLICK_TIME
-						&& Math.abs(event.getX() - lastX) < MAX_CLICK_DISTANCE
-						&& Math.abs(event.getY() - lastY) < MAX_CLICK_DISTANCE) {
-					keyboardGroup.startAnimation(keyboard_fade_in);
-					keyboardGroup.setVisibility(View.VISIBLE);
+				} else if (event.getAction() == MotionEvent.ACTION_UP) {
+					if (keyboardGroup.getVisibility() == View.GONE) {
+						keyboardGroup.startAnimation(keyboard_fade_in);
+						keyboardGroup.setVisibility(View.VISIBLE);
+					}
 
-					handler.postDelayed(new Runnable() {
-						public void run() {
-							if (keyboardGroup.getVisibility() == View.GONE)
-								return;
-
-							keyboardGroup.startAnimation(keyboard_fade_out);
-							keyboardGroup.setVisibility(View.GONE);
-						}
-					}, KEYBOARD_DISPLAY_TIME);
+					handler.removeCallbacks(fadeOutOnScreenKeys);
+					handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 				}
 
 				// pass any touch events back to detector

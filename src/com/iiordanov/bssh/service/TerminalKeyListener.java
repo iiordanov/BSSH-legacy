@@ -608,71 +608,47 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 	}
 
 	public void sendUp() {
-		if (selectingForCopy) {
-			selectionArea.decrementRow();
-			bridge.redraw();
+		if ((metaState & META_ALT_MASK) != 0) {
+			((vt320)buffer).keyPressed(vt320.KEY_PAGE_UP, ' ',
+					getStateForBuffer());
 		} else {
-			if ((metaState & META_ALT_MASK) != 0) {
-				((vt320)buffer).keyPressed(vt320.KEY_PAGE_UP, ' ',
-						getStateForBuffer());
-			} else {
-				((vt320) buffer).keyPressed(vt320.KEY_UP, ' ',
-						getStateForBuffer());
-			}
-			metaState &= ~META_TRANSIENT;
-			bridge.tryKeyVibrate();
+			((vt320) buffer).keyPressed(vt320.KEY_UP, ' ',
+					getStateForBuffer());
 		}
+		metaState &= ~META_TRANSIENT;
 	}
 
 	public void sendLeft() {
-		if (selectingForCopy) {
-			selectionArea.decrementColumn();
-			bridge.redraw();
+		if ((metaState & META_ALT_MASK) != 0) {
+			((vt320) buffer).keyPressed(vt320.KEY_HOME, ' ',
+					getStateForBuffer());
 		} else {
-			if ((metaState & META_ALT_MASK) != 0) {
-				((vt320) buffer).keyPressed(vt320.KEY_HOME, ' ',
-						getStateForBuffer());
-			} else {
-				((vt320) buffer).keyPressed(vt320.KEY_LEFT, ' ',
-						getStateForBuffer());
-			}
-			metaState &= ~META_TRANSIENT;
-			bridge.tryKeyVibrate();
+			((vt320) buffer).keyPressed(vt320.KEY_LEFT, ' ',
+					getStateForBuffer());
 		}
+		metaState &= ~META_TRANSIENT;
 	}
-	
+
 	public void sendDown() {
-		if (selectingForCopy) {
-			selectionArea.incrementRow();
-			bridge.redraw();
+		if ((metaState & META_ALT_MASK) != 0) {
+			((vt320)buffer).keyPressed(vt320.KEY_PAGE_DOWN, ' ',
+					getStateForBuffer());
 		} else {
-			if ((metaState & META_ALT_MASK) != 0) {
-				((vt320)buffer).keyPressed(vt320.KEY_PAGE_DOWN, ' ',
-						getStateForBuffer());
-			} else {
-				((vt320) buffer).keyPressed(vt320.KEY_DOWN, ' ',
-						getStateForBuffer());
-			}
-			metaState &= ~META_TRANSIENT;
-			bridge.tryKeyVibrate();
+			((vt320) buffer).keyPressed(vt320.KEY_DOWN, ' ',
+					getStateForBuffer());
 		}
+		metaState &= ~META_TRANSIENT;
 	}
 
 	public void sendRight() {
-		if (selectingForCopy) {
-			selectionArea.incrementColumn();
-			bridge.redraw();
+		if ((metaState & META_ALT_MASK) != 0) {
+			((vt320) buffer).keyPressed(vt320.KEY_END, ' ',
+					getStateForBuffer());
 		} else {
-			if ((metaState & META_ALT_MASK) != 0) {
-				((vt320) buffer).keyPressed(vt320.KEY_END, ' ',
-						getStateForBuffer());
-			} else {
-				((vt320) buffer).keyPressed(vt320.KEY_RIGHT, ' ',
-						getStateForBuffer());
-			}
-			metaState &= ~META_TRANSIENT;
-			bridge.tryKeyVibrate();
+			((vt320) buffer).keyPressed(vt320.KEY_RIGHT, ' ',
+					getStateForBuffer());
 		}
+		metaState &= ~META_TRANSIENT;
 	}
 	
 	/**

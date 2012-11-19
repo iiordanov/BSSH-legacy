@@ -124,37 +124,48 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
-		android:padding="7dip"
+		android:padding="10dip"
 		android:visibility="gone">
 
-		<ImageView
-			android:id="@+id/button_tab"
-			android:paddingRight="7dip"
+	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:id="@+id/layoutTabCtrlKeys"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentBottom="true"
-			android:src="@+drawable/button_tab"
-			android:contentDescription="@string/image_description_send_tab_character"
-			/>
- 
-		<ImageView
-			android:id="@+id/button_ctrl"
-			android:paddingRight="7dip"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_toRightOf="@+id/button_tab"
-			android:layout_alignParentBottom="true"
-			android:src="@+drawable/button_ctrl"
-			android:contentDescription="@string/image_description_toggle_control_character"
-			/>
+			android:orientation="vertical"
+			android:padding="0sp"
+			>
+			<ImageView
+				android:id="@+id/button_tab"
+				android:paddingRight="10dip"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentBottom="true"
+				android:layout_marginBottom="5dip"
+				android:src="@+drawable/button_tab"
+				android:contentDescription="@string/image_description_send_tab_character"
+				/>
+	 
+			<ImageView
+				android:id="@+id/button_ctrl"
+				android:paddingRight="10dip"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_toRightOf="@+id/button_tab"
+				android:layout_alignParentBottom="true"
+				android:src="@+drawable/button_ctrl"
+				android:contentDescription="@string/image_description_toggle_control_character"
+				/>
+		</LinearLayout>
 
 		<ImageView
 			android:id="@+id/button_esc"
-			android:paddingRight="7dip"
+			android:paddingRight="10dip"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_toRightOf="@+id/button_ctrl"
+			android:layout_toRightOf="@+id/layoutTabCtrlKeys"
 			android:layout_alignParentBottom="true"
 			android:src="@+drawable/button_esc"
 			android:contentDescription="@string/image_description_send_escape_character"
@@ -162,7 +173,7 @@
 
 		<ImageView
 			android:id="@+id/button_sym"
-			android:paddingRight="7dip"
+			android:paddingRight="10dip"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_alignParentBottom="true"
@@ -173,7 +184,7 @@
 
 		<ImageView
 			android:id="@+id/button_input"
-			android:paddingRight="7dip"
+			android:paddingRight="10dip"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_toRightOf="@+id/button_sym"
@@ -196,7 +207,7 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_gravity="top|center"
-		        android:paddingRight="7dip"
+		        android:layout_marginBottom="5dip"
 		        android:contentDescription="@string/image_description_send_up_character"
 		        />
 			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -211,21 +222,20 @@
 			        android:background="@drawable/button_left"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
-			        android:paddingRight="7dip"
+			        android:layout_marginRight="10dip"
 			        android:contentDescription="@string/image_description_send_left_character"
 			        />
 				<ImageButton android:id="@+id/button_down"
 			        android:background="@drawable/button_down"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
-			        android:paddingRight="7dip"
+			        android:layout_marginRight="10dip"
 			        android:contentDescription="@string/image_description_send_down_character"
 			        />
 				<ImageButton android:id="@+id/button_right"
 			        android:background="@drawable/button_right"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
-			        android:paddingRight="7dip"
 			        android:contentDescription="@string/image_description_send_right_character"
 			        />
 			</LinearLayout>
