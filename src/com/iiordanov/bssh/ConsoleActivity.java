@@ -88,7 +88,7 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 	private static final int CLICK_TIME = 400;
 	private static final float MAX_CLICK_DISTANCE = 25f;
-	private static final int KEYBOARD_DISPLAY_TIME = 4000;
+	private static final int KEYBOARD_DISPLAY_TIME = 4500;
 
 	// Direction to shift the ViewFlipper
 	private static final int SHIFT_LEFT = 0;
@@ -806,7 +806,11 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
 					lastX = event.getX();
 					lastY = event.getY();
-				} else if (event.getAction() == MotionEvent.ACTION_UP) {
+				} else if (event.getAction() == MotionEvent.ACTION_UP
+							&& event.getEventTime() - event.getDownTime() < CLICK_TIME
+							&& Math.abs(event.getX() - lastX) < MAX_CLICK_DISTANCE
+							&& Math.abs(event.getY() - lastY) < MAX_CLICK_DISTANCE) {
+					
 					if (keyboardGroup.getVisibility() == View.GONE) {
 						keyboardGroup.startAnimation(keyboard_fade_in);
 						keyboardGroup.setVisibility(View.VISIBLE);
@@ -1079,6 +1083,10 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				return true;
 			}
 		});
+
+		MenuItem help = menu.add(R.string.title_help);
+		help.setIcon(android.R.drawable.ic_menu_help);
+		help.setIntent(new Intent(ConsoleActivity.this, HelpActivity.class));
 
 		return true;
 	}

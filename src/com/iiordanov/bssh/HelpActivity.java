@@ -55,9 +55,12 @@ public class HelpActivity extends Activity {
 
 		TextView appVersionView = (TextView) this.findViewById(R.id.topics).findViewById(R.id.app_version);
 
+		String vers = android.os.Build.ID;
+		android.util.Log.e(TAG, vers);
+		
 		// get package version
 		try {
-			appVersionView.setText(getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+			appVersionView.setText(getPackageManager().getPackageInfo(getPackageName(), 0).versionName + ", OS: " + vers);
 		} catch (NameNotFoundException e) {
 			Log.e(TAG, "Problem retrieving application version", e);
 		}

@@ -17,8 +17,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.iiordanov.bssh"
-	android:versionName="1.7.1-17"
-	android:versionCode="17"
+	android:versionName="1.7.4-0"
+	android:versionCode="0"
 	android:installLocation="auto">
 
 	<uses-sdk android:targetSdkVersion="11" android:minSdkVersion="3" />
