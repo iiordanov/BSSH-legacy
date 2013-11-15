@@ -148,29 +148,8 @@ public class TerminalKeyListener implements OnKeyListener, OnSharedPreferenceCha
 		try {
 			final boolean hardKeyboardHidden = manager.hardKeyboardHidden;
 			
-			boolean backspaceWorkaround = false;
-			String vers = android.os.Build.ID;
-			if (vers.equals("10.1.0.103"))
-				backspaceWorkaround = true;
-			
 			// Ignore all key-up events except for the special keys
 			if (event.getAction() == KeyEvent.ACTION_UP) {
-
-				// UGLY HACK FOR BB 10.1. Remove as soon as possible!
-				if (backspaceWorkaround) {
-					switch(keyCode) {
-					case KeyEvent.KEYCODE_DEL:
-						if ((metaState & META_ALT_MASK) != 0) {
-							((vt320) buffer).keyPressed(vt320.KEY_INSERT, ' ',
-								getStateForBuffer());
-						} else {
-							((vt320) buffer).keyPressed(vt320.KEY_BACK_SPACE, ' ',
-								getStateForBuffer());
-						}
-						metaState &= ~META_TRANSIENT;
-						return true;
-					}
-				}
 				
 				// Look for external keyboard scancodes.
 				switch (event.getScanCode()) {
