@@ -5,3 +5,5 @@ dist
 release
 *~
 */build
+debug/
+release/

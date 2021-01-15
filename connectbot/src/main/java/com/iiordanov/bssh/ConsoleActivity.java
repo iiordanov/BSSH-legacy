@@ -82,7 +82,7 @@ import com.iiordanov.bssh.util.TransferThread;
 import de.mud.terminal.vt320;
 
 public class ConsoleActivity extends Activity implements FileChooserCallback {
-	public final static String TAG = "ConnectBot.ConsoleActivity";
+	public final static String TAG = "ConsoleActivity";
 
 	protected static final int REQUEST_EDIT = 1;
 
@@ -451,6 +451,18 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 				promptThread.setName("Prompt");
 				promptThread.setDaemon(true);
 				promptThread.start();
+				keyboardGroup.setVisibility(View.GONE);
+			}
+		});
+
+		final ImageView mFontSizeButton = (ImageView) findViewById(R.id.button_font_size);
+		mFontSizeButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				View flip = findCurrentView(R.id.console_flip);
+				if (flip == null) return;
+				final TerminalView terminal = (TerminalView)flip;
+				final TerminalBridge bridge = terminal.bridge;
+				bridge.showFontSizeDialog();
 				keyboardGroup.setVisibility(View.GONE);
 			}
 		});

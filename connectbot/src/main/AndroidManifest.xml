@@ -18,7 +18,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.iiordanov.bssh"
 	android:versionName="1.7.5"
-	android:versionCode="1"
+	android:versionCode="2"
 	android:installLocation="auto">
 
 	<uses-sdk />
