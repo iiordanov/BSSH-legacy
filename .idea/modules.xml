@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BSSH.iml" filepath="$PROJECT_DIR$/.idea/modules/BSSH.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/connectbot/BSSH.connectbot.iml" filepath="$PROJECT_DIR$/.idea/modules/connectbot/BSSH.connectbot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/simplesocks/BSSH.simplesocks.iml" filepath="$PROJECT_DIR$/.idea/modules/simplesocks/BSSH.simplesocks.iml" />
+    </modules>
+  </component>
+</project>

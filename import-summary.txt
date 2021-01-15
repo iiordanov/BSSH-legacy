@@ -1,0 +1,116 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+From connectbot:
+* .gitignore
+* LICENSE
+* README
+* README.md
+* dist/
+* dist/Android 2.3.3/
+* dist/Android 2.3.3/BSSH.bar
+* dist/Android 2.3.3/BSSH.lsv
+* dist/Android 2.3.3/BSSH.wrn
+* dist/Android 2.3.3/archives/
+* dist/Android 2.3.3/archives/BSSH_20120503094656.bar
+* dist/Android 2.3.3/archives/BSSH_20121118072546.bar
+* dist/Android 2.3.3/archives/BSSH_20121118113409.bar
+* dist/Android 2.3.3/archives/BSSH_20121118114414.bar
+* dist/Android 2.3.3/archives/BSSH_20130112011900.bar
+* dist/Android 2.3.3/archives/BSSH_20130516030653.bar
+* dist/Android 2.3.3/archives/BSSH_20130516030929.bar
+* dist/Android 2.3.3/archives/BSSH_20130605054043.bar
+* dist/Android 2.3.3/archives/BSSH_20130605054504.bar
+* locale/
+* locale/.gitignore
+* tests/
+* tests/.classpath
+* tests/.gitignore
+* tests/.project
+* tests/.settings/
+* tests/.settings/org.eclipse.jdt.core.prefs
+* tests/.settings/org.eclipse.jdt.ui.prefs
+* tests/AndroidManifest.xml
+* tests/ant.properties
+* tests/build.xml
+* tests/proguard.cfg
+* tests/project.properties
+* tests/src/
+* tests/src/sk/
+* tests/src/sk/vx/
+* tests/src/sk/vx/connectbot/
+* tests/src/sk/vx/connectbot/HostBeanTest.java
+* tests/src/sk/vx/connectbot/HostListActivityTest.java
+* tests/src/sk/vx/connectbot/SelectionAreaTest.java
+* tests/src/sk/vx/connectbot/SettingsActivityTest.java
+* tests/src/sk/vx/connectbot/TerminalBridgeTest.java
+* tests/src/sk/vx/connectbot/mock/
+* tests/src/sk/vx/connectbot/mock/BeanTestCase.java
+* tests/src/sk/vx/connectbot/mock/NullOutputStream.java
+* tests/src/sk/vx/connectbot/mock/NullTransport.java
+* tests/src/sk/vx/connectbot/util/
+* tests/src/sk/vx/connectbot/util/PubkeyUtilsTest.java
+* tools/
+* tools/google-code-upload.pl
+From simplesocks:
+* build.gradle
+* ic_launcher-web.png
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:23.4.0
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+In simplesocks:
+* AndroidManifest.xml => simplesocks/src/main/AndroidManifest.xml
+* assets/ => simplesocks/src/main/assets
+* res/ => simplesocks/src/main/res/
+* src/ => simplesocks/src/main/java/
+In connectbot:
+* AndroidManifest.xml => connectbot/src/main/AndroidManifest.xml
+* assets/ => connectbot/src/main/assets/
+* res/ => connectbot/src/main/res/
+* src/ => connectbot/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

@@ -1,0 +1,47 @@
+<html>
+<body bgcolor="#000000" text="#FFFFFF"
+
+<h2>Virtual Keyboard </h2>
+
+<p>By default, BSSH is set to use <strong>Landscape</strong>
+mode. However, you may find that in <strong>Landscape</strong> mode,
+the virtual keyboard takes up a large part of your screen. Therefore,
+you may prefer to use BSSH with a virtual keyboard in <strong>Portrait</strong>
+mode in order to see more lines on the terminal.</p>
+
+<p>To change this setting, at the <strong>Host List</strong> swipe
+from the top of the screen down and select <strong>Settings</strong>.
+Then, select your preference in <strong>Rotation mode</strong>.</p>
+
+<p>On devices without a hardware keyboard, you may swipe from the bottom
+left corner diagonally inward to bring up the virtual keyboard. Please note
+that this applies to any program on the Blackberry platform - it is not
+BSSH specific.</p>
+
+<p>Swipe from the bottom diagonally left or right in order to go 
+<strong>back</strong> within the program.
+
+<h2>How to Enter Control, Alt, Escape, and Function Keys</h2>
+<p>Tap the screen while connected to a host to see on-screen
+shortcuts to <strong>Ctrl</strong>, <strong>ESC</strong>, a table of
+symbols (<strong>SYM</strong>), and the virtual keyboard (a picture of a
+keyboard).</p>
+
+<p>You can enter any key combination with BSSH and the virtual
+keyboard, but you must know how keys are mapped on a normal console. For
+instance, usually combinations of ALT+letter on a PC keyboard are
+actually mapped to sending, sequentially, ESC key then the letter.</p>
+
+<p> Here are some important keys not present on the virtual keyboard and in
+an on-screen shortcut:</p>
+<ul>
+	<li><strong>Tab key</strong> = <strong>CTRL + i</strong></li>
+	<li><strong>Function key</strong> = <strong>CTRL + number</strong>
+	</li>
+</ul>
+
+<p>Note there are also screen gestures: see the ScreenGestures help topic for
+help on <strong>Page Up</strong>, <strong>Page Down</strong>, <strong>Scrolling</strong>, and <strong>Switching hosts</strong>.</p>
+
+</body>
+</html>
