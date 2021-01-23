@@ -298,10 +298,10 @@ public class TerminalView extends View implements FontSizeChangedListener {
 
 	@Override
 	public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-		outAttrs.imeOptions |=
-			EditorInfo.IME_FLAG_NO_EXTRACT_UI |
-			EditorInfo.IME_FLAG_NO_ENTER_ACTION |
-			EditorInfo.IME_ACTION_NONE;
+		outAttrs.imeOptions |= EditorInfo.IME_FLAG_NO_FULLSCREEN |
+				EditorInfo.IME_FLAG_NO_EXTRACT_UI |
+						EditorInfo.IME_FLAG_NO_ENTER_ACTION |
+						EditorInfo.IME_ACTION_NONE;
 		outAttrs.inputType = EditorInfo.TYPE_NULL |
 				EditorInfo.TYPE_TEXT_VARIATION_PASSWORD |
 				EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD |
@@ -315,7 +315,9 @@ public class TerminalView extends View implements FontSizeChangedListener {
 				for (int i = 0; i < leftLength; i++) {
 					this.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
 				}
-				// TODO: forward delete
+				for (int i = 0; i < rightLength; i++) {
+					this.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_FORWARD_DEL));
+				}
 				return true;
 			}
 		};

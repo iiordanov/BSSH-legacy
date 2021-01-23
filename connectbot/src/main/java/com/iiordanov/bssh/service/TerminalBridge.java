@@ -502,6 +502,10 @@ public class TerminalBridge implements VDUDisplay {
 		manager.tryKeyVibrate();
 	}
 
+	public synchronized void vibrate() {
+		manager.vibrate();
+	}
+
 	/**
 	 * Request a different font size. Will make call to parentChanged() to make
 	 * sure we resize PTY if needed.

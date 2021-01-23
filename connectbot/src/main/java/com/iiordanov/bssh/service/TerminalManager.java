@@ -102,7 +102,7 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 
 	private Vibrator vibrator;
 	private volatile boolean wantKeyVibration;
-	public static final long VIBRATE_DURATION = 30;
+	public static final long VIBRATE_DURATION = 5;
 
 	private boolean wantBellVibration;
 
@@ -537,7 +537,7 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 			vibrate();
 	}
 
-	private void vibrate() {
+	public void vibrate() {
 		if (vibrator != null)
 			vibrator.vibrate(VIBRATE_DURATION);
 	}

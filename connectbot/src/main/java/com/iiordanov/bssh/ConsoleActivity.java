@@ -476,7 +476,8 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendTab();
-				
+				terminal.bridge.vibrate();
+
 				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
 				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
@@ -491,6 +492,7 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.metaPress(TerminalKeyListener.META_CTRL_ON);
+				terminal.bridge.vibrate();
 
 				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
 				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
@@ -515,6 +517,7 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendEscape();
+				terminal.bridge.vibrate();
 
 				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
 				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
@@ -539,6 +542,7 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendUp();
+				terminal.bridge.vibrate();
 				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
 				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
@@ -553,6 +557,7 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendLeft();
+				terminal.bridge.vibrate();
 				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
 				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
@@ -567,6 +572,7 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendDown();
+				terminal.bridge.vibrate();
 				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
 				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
@@ -581,6 +587,7 @@ public class ConsoleActivity extends Activity implements FileChooserCallback {
 
 				TerminalKeyListener handler = terminal.bridge.getKeyHandler();
 				handler.sendRight();
+				terminal.bridge.vibrate();
 				ConsoleActivity.this.handler.removeCallbacks(fadeOutOnScreenKeys);
 				ConsoleActivity.this.handler.postDelayed(fadeOutOnScreenKeys, KEYBOARD_DISPLAY_TIME);
 			}
